@@ -1,13 +1,12 @@
 <script setup>
 import CalendarEvent from "./CalendarEvent.vue";
 
-const props = defineProps({
+const { day } = defineProps({
   day: {
     type: Object,
     required: true,
   },
 });
-const { day } = props;
 
 const activeDayHeader = day.active ? ["bg-primary", "text-white"] : null;
 const activeDayBody = day.active
@@ -25,6 +24,7 @@ const activeDayBody = day.active
         v-for="event in day.events"
         :key="event.title"
         :event="event"
+        :dayId="day.id"
       >
         <template #priority="{ displayPriorityName }">
           <h5>{{ displayPriorityName() }}</h5>

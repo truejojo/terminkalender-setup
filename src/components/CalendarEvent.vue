@@ -1,10 +1,11 @@
 <script setup>
-const props = defineProps({
+import Store from "../store"
+const { event, dayId } = defineProps({
   event: {
     type: [],
   },
+  dayId: Number
 });
-const { event } = props;
 
 const displayPriorityName = () => {
   switch (event.priority) {
@@ -20,23 +21,25 @@ const displayPriorityName = () => {
 };
 
 const setEventBG = () => `alert-${event.color}`;
+
+const deleteEvent = () => Store.mutations.deleteEvent(dayId, event.title)
 </script>
 
 <template>
   <div class="event alert text-center alert" :class="setEventBG()">
     <div>
       <!-- <strong>{{ setPriority() }}</strong> -->
-      <slot name="priority" :displayPriorityName="displayPriorityName">Mittel</slot>
+      <slot name="priority" :displayPriorityName="displayPriorityName"
+        >Mittel</slot
+      >
     </div>
 
     <!-- <h5>{{ event.title }}</h5> -->
-    <slot name="title" :title="event.title">
-      Title
-    </slot>
+    <slot name="title" :title="event.title"> Title </slot>
 
     <div>
       <i class="fas fa-edit me-2" role="button"></i>
-      <i class="far fa-trash-alt" role="button"></i>
+      <i class="far fa-trash-alt" role="button" @click="deleteEvent"></i>
     </div>
   </div>
 </template>
