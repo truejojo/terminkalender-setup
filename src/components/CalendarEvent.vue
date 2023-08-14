@@ -1,13 +1,38 @@
 <script setup>
+const props = defineProps({
+  event: {
+    type: [],
+  },
+});
+const { event } = props;
+
+const displayPriorityName = () => {
+  switch (event.priority) {
+    case 1:
+      return "Tief";
+    case 0:
+      return "Mittel";
+    case -1:
+      return "Hoch";
+    default:
+      return "Mittel";
+  }
+};
+
+const setEventBG = () => `alert-${event.color}`;
 </script>
 
 <template>
-  <div class="event alert text-center">
+  <div class="event alert text-center alert" :class="setEventBG()">
     <div>
-      <strong>Hoch</strong>
+      <!-- <strong>{{ setPriority() }}</strong> -->
+      <slot name="priority" :displayPriorityName="displayPriorityName">Mittel</slot>
     </div>
 
-    <div>Vue.js 3 lernen</div>
+    <!-- <h5>{{ event.title }}</h5> -->
+    <slot name="title" :title="event.title">
+      Title
+    </slot>
 
     <div>
       <i class="fas fa-edit me-2" role="button"></i>
@@ -16,5 +41,4 @@
   </div>
 </template>
 
-<style>
-</style>
+<style></style>
