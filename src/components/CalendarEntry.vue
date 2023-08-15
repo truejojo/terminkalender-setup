@@ -1,4 +1,5 @@
 <script setup>
+import CalendarEventPriority from "./CalendarEventPriority.vue"
 </script>
 
 <template>
@@ -8,11 +9,7 @@
     </div>
     <div class="card-body">
       <input type="text" class="form-control" placeholder="Neuer Eintrag" />
-      <select class="form-select mt-2">
-        <option value="-1">Hoch</option>
-        <option value="0">Mittel</option>
-        <option value="1">Tief</option>
-      </select>
+      <CalendarEventPriority />
       <div class="text-center mt-3">
         <span
           v-for="i in 5"
